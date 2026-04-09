@@ -1,0 +1,519 @@
+/* ========== CSS ПЕРЕМЕННЫЕ (все цвета и отступы в одном месте) ========== */
+:root {
+    /* ===== ЦВЕТОВАЯ СХЕМА ===== */
+    --primary-green: #00ff41;     /* Основной - неоновый зеленый */
+    --secondary-pink: #ff00ff;     /* Дополнительный - неоновый розовый */
+    --bg-dark: #0d0208;            /* Фон - почти черный */
+    --text-light: #00ff41;         /* Текст - зеленый */
+    --card-bg: #1a0f1a;            /* Фон карточек - темно-фиолетовый */
+    
+    /* ===== СИСТЕМА ОТСТУПОВ (чтобы везде было ровно) ===== */
+    --spacing-xs: 4px;              /* Очень маленький отступ */
+    --spacing-sm: 8px;              /* Маленький отступ */
+    --spacing-md: 16px;             /* Средний отступ */
+    --spacing-lg: 24px;             /* Большой отступ */
+    --spacing-xl: 32px;             /* Очень большой отступ */
+    --spacing-xxl: 48px;            /* Максимальный отступ */
+    
+    /* ===== РАЗМЕРЫ ===== */
+    --container-width: 1200px;      /* Максимальная ширина контента */
+    --border-radius: 8px;           /* Радиус скругления углов */
+}
+
+/* ========== УНИВЕРСАЛЬНЫЙ СЕЛЕКТОР (обнуляем всё) ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;         /* Чтобы ширина считалась с padding'ом */
+}
+
+/* ========== СЕЛЕКТОР ТЕГА ДЛЯ BODY ========== */
+body {
+    /* Шрифты */
+    font-family: 'Courier New', monospace;  /* Стильный моноширинный шрифт */
+    font-size: 16px;
+    line-height: 1.6;               /* Межстрочный интервал */
+    
+    /* Цвета */
+    background: var(--bg-dark);
+    color: var(--text-light);
+    
+    /* Расположение */
+    min-height: 100vh;               /* Минимальная высота на весь экран */
+    display: flex;
+    flex-direction: column;
+    
+    /* Позиционирование для псевдоэлемента */
+    position: relative;
+}
+
+/* ========== ПСЕВДОЭЛЕМЕНТ - ЭФФЕКТ СТАРОГО ТЕЛЕВИЗОРА ========== */
+body::after {
+    content: "";                     /* Обязательно для псевдоэлемента */
+    position: fixed;                 /* Приклеиваем к экрану */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Создаем полоски как на старых ЭЛТ телевизорах */
+    background: repeating-linear-gradient(
+        0deg,                        /* Направление сверху вниз */
+        rgba(0, 255, 65, 0.03) 0px,  /* Прозрачный зеленый */
+        rgba(0, 0, 0, 0.3) 1px,      /* Темная полоска */
+        transparent 2px              /* Прозрачный промежуток */
+    );
+    
+    pointer-events: none;            /* Чтобы можно было кликать сквозь полоски */
+    z-index: 9999;                   /* Чтобы было поверх всего */
+}
+
+/* ========== СЕЛЕКТОР ТЕГА ДЛЯ HEADER ========== */
+header {
+    background: #1a0f1a;              /* Темно-фиолетовый фон */
+    border-bottom: 2px solid var(--primary-green);
+    padding: var(--spacing-md) 0;      /* Отступы сверху и снизу */
+    margin-bottom: var(--spacing-xl);  /* Отступ снизу от шапки */
+    position: sticky;                  /* Прилипает к верху при скролле */
+    top: 0;
+    z-index: 100;
+}
+
+/* ========== НАВИГАЦИЯ ========== */
+nav ul {
+    list-style: none;                  /* Убираем маркеры списка */
+    display: flex;                      /* Элементы в ряд */
+    justify-content: center;            /* По центру */
+    gap: var(--spacing-lg);             /* Расстояние между пунктами */
+    flex-wrap: wrap;                    /* Перенос на новую строку */
+    padding: 0 var(--spacing-md);
+}
+
+/* СЕЛЕКТОР ТЕГА ДЛЯ ССЫЛОК В НАВИГАЦИИ */
+nav a {
+    color: var(--text-light);
+    text-decoration: none;              /* Убираем подчеркивание */
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;          /* Плавные переходы */
+    font-weight: bold;
+    position: relative;
+}
+
+/* ПСЕВДОКЛАСС :hover - при наведении */
+nav a:hover {
+    border-color: var(--primary-green);
+    background: rgba(0, 255, 65, 0.1);
+    text-shadow: 0 0 8px var(--primary-green), 0 0 15px var(--secondary-pink);
+}
+
+/* СЕЛЕКТОР КЛАССА для активной страницы */
+.active {
+    background: var(--primary-green);
+    color: var(--bg-dark);
+}
+
+/* ========== СЕЛЕКТОР ID (пример выполнения ТЗ) ========== */
+#main-title {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ========== MAIN КОНТЕЙНЕР ========== */
+main {
+    flex: 1;                            /* Занимает все свободное место */
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    width: 100%;
+}
+
+/* ========== ЗАГОЛОВКИ (h1-h6) ========== */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--secondary-pink);
+    text-shadow: 0 0 10px var(--secondary-pink);
+    border-bottom: 2px solid var(--primary-green);
+    padding-bottom: var(--spacing-sm);
+}
+
+h2 {
+    font-size: 2rem;
+    margin: var(--spacing-xl) 0 var(--spacing-md);
+    color: var(--primary-green);
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+/* ========== ПАРАГРАФЫ ========== */
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+/* ПСЕВДОЭЛЕМЕНТ ::first-letter для первого абзаца */
+.first-paragraph::first-letter {
+    font-size: 3rem;
+    color: var(--secondary-pink);
+    font-weight: bold;
+    float: left;
+    margin-right: var(--spacing-sm);
+    line-height: 1;
+    text-shadow: 0 0 15px var(--secondary-pink);
+}
+
+/* ========== СПИСКИ (ul/ol) ========== */
+ul, ol {
+    margin: var(--spacing-md) 0 var(--spacing-md) var(--spacing-xl);
+}
+
+li {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ПСЕВДОЭЛЕМЕНТ ::marker - стилизация маркеров списка */
+ul li::marker {
+    color: var(--primary-green);
+    content: "► ";                     /* Нестандартный маркер */
+}
+
+ol li::marker {
+    color: var(--secondary-pink);
+    font-weight: bold;
+}
+
+/* ========== ИЗОБРАЖЕНИЯ С ПОДПИСЬЮ ========== */
+figure {
+    margin: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    border: 3px solid var(--primary-green);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    transition: transform 0.3s ease;
+}
+
+figure:hover img {
+    transform: scale(1.02);
+}
+
+figcaption {
+    margin-top: var(--spacing-sm);
+    font-style: italic;
+    color: var(--secondary-pink);
+}
+
+/* ========== КНОПКИ ========== */
+.button {
+    display: inline-block;
+    background: transparent;
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: var(--spacing-md) 0;
+}
+
+/* ПСЕВДОКЛАСС :hover для кнопок */
+.button:hover {
+    background: var(--primary-green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--primary-green);
+    transform: translateY(-2px);
+}
+
+/* ========== КАРТОЧКИ ДЛЯ ПОРТФОЛИО ========== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-green);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 255, 65, 0.1);
+    position: relative;
+}
+
+/* ПСЕВДОКЛАСС :hover для карточек */
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(255, 0, 255, 0.3);
+    border-color: var(--secondary-pink);
+}
+
+/* ПСЕВДОЭЛЕМЕНТ для эффекта сканирования */
+.project-card:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 255, 65, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    animation: scan 2s linear infinite;
+    pointer-events: none;
+    border-radius: var(--border-radius);
+}
+
+/* АНИМАЦИЯ для сканирующей строки */
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+/* ========== ТАБЛИЦЫ ========== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-xl) 0;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid var(--primary-green);
+    padding: var(--spacing-md);
+    text-align: left;
+}
+
+th {
+    background: var(--primary-green);
+    color: var(--bg-dark);
+    font-weight: bold;
+}
+
+/* ПСЕВДОКЛАСС :nth-child для зебры */
+tr:nth-child(even) {
+    background: #2a152a;
+}
+
+/* ПСЕВДОКЛАСС :hover для строк таблицы */
+tr:hover {
+    background: rgba(255, 0, 255, 0.1);
+}
+
+/* ========== ФОРМА ОБРАТНОЙ СВЯЗИ ========== */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-green);
+    font-weight: bold;
+}
+
+/* СЕЛЕКТОР ПО АТРИБУТУ */
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--card-bg);
+    border: 2px solid var(--primary-green);
+    color: var(--text-light);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* ПСЕВДОКЛАСС :focus - при фокусе */
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--secondary-pink);
+    box-shadow: 0 0 10px var(--secondary-pink);
+}
+
+button {
+    background: transparent;
+    color: var(--secondary-pink);
+    border: 2px solid var(--secondary-pink);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: var(--secondary-pink);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--secondary-pink);
+    transform: translateY(-2px);
+}
+
+/* ========== ЦИТАТА ========== */
+blockquote {
+    background: var(--card-bg);
+    border-left: 4px solid var(--secondary-pink);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+    font-style: italic;
+    position: relative;
+}
+
+/* ПСЕВДОЭЛЕМЕНТ для кавычек */
+blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--secondary-pink);
+    opacity: 0.3;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+cite {
+    display: block;
+    margin-top: var(--spacing-sm);
+    color: var(--primary-green);
+    font-style: normal;
+}
+
+/* ========== FOOTER (ПОДВАЛ) ========== */
+footer {
+    background: #1a0f1a;
+    border-top: 2px solid var(--primary-green);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-xl);
+    text-align: center;
+    position: relative;
+}
+
+footer p {
+    margin-bottom: var(--spacing-sm);
+}
+
+footer a {
+    color: var(--secondary-pink);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-green);
+    text-decoration: underline;
+}
+
+/* ПСЕВДОЭЛЕМЕНТ для декоративной полоски */
+footer::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--primary-green) 0px,
+        var(--secondary-pink) 5px,
+        transparent 10px
+    );
+    animation: move 3s linear infinite;
+}
+
+/* Анимация для полоски */
+@keyframes move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(20px); }
+}
+
+/* ========== АНИМАЦИИ ДЛЯ ГЛИТЧА ========== */
+
+/* Эффект глитча для заголовков при наведении */
+h1:hover {
+    animation: subtleGlitch 0.2s ease infinite;
+}
+
+@keyframes subtleGlitch {
+    0% { transform: translate(0); text-shadow: -1px 0 rgba(255,0,255,0.5), 1px 0 rgba(0,255,0,0.5); }
+    25% { transform: translate(-1px, 0); }
+    50% { transform: translate(1px, 0); }
+    75% { transform: translate(0, 1px); }
+    100% { transform: translate(0); }
+}
+
+/* Эффект мерцания для body (усиливаем вайб) */
+body {
+    animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.98; }
+    50% { opacity: 1; }
+    100% { opacity: 0.98; }
+}
+
+/* ========== МЕДИА-ЗАПРОСЫ (ДЛЯ МОБИЛЬНЫХ) ========== */
+@media (max-width: 768px) {
+    /* Уменьшаем заголовки */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Меняем навигацию на колонку */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+    
+    /* Сетка в одну колонку */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Уменьшаем отступы */
+    :root {
+        --spacing-xl: 24px;
+        --spacing-xxl: 32px;
+    }
+    
+    /* Таблицы скроллятся горизонтально */
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЙ КЛАСС ДЛЯ ТЕКСТА ========== */
+.highlight {
+    color: var(--secondary-pink);
+    font-weight: bold;
+}
+
+/* ========== СПЕЦСИМВОЛЫ (уже есть в HTML) ========== */
+/* &copy; - копирайт */
+/* &nbsp; - неразрывный пробел */
+/* &lt; - < */
+/* &gt; - > */
