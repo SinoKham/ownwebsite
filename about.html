@@ -8,6 +8,9 @@
 </head>
 <body>
     <header>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="burger">☰</label>
+        <button id="theme-toggle" aria-label="Переключить тему">🌙</button>
         <nav>
             <ul>
                 <li><a href="index.html">Главная</a></li>
@@ -23,7 +26,7 @@
         <h1>Обо мне</h1>
         <p>Меня зовут Сино. Мне 19 лет. Живу в Тюмени.</p>
         
-        <p>Учусь на программиста. Люблю создавать сайты и узнавать новое.</p>
+        <p>Учусь на программиста. Люблю создавать проекты и узнавать новое.</p>
         
         <p>Мои увлечения: спорт, музыка, фильмы, сериалы и путешествия.</p>
         
@@ -34,12 +37,103 @@
             <li>Гулять с друзьями</li>
         </ul>
         
-
+        <!-- Конвертер валют -->
+        <section id="currency-converter" style="
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-green);
+            border-radius: 8px;
+        ">
+            <h2>Конвертер валют</h2>
+            <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+                <input type="number" id="converter-amount" placeholder="Сумма" value="1" style="
+                    padding: 10px;
+                    background: var(--bg-dark);
+                    color: var(--primary-green);
+                    border: 2px solid var(--primary-green);
+                    border-radius: 4px;
+                    flex: 1;
+                    min-width: 100px;
+                ">
+                <select id="converter-from" style="
+                    padding: 10px;
+                    background: var(--bg-dark);
+                    color: var(--primary-green);
+                    border: 2px solid var(--primary-green);
+                    border-radius: 4px;
+                ">
+                    <option>USD</option>
+                    <option>RUB</option>
+                    <option>EUR</option>
+                    <option>GBP</option>
+                    <option>CNY</option>
+                    <option>JPY</option>
+                </select>
+                <span style="color: var(--primary-green); font-weight: bold; align-self: center;">→</span>
+                <select id="converter-to" style="
+                    padding: 10px;
+                    background: var(--bg-dark);
+                    color: var(--primary-green);
+                    border: 2px solid var(--primary-green);
+                    border-radius: 4px;
+                ">
+                    <option>RUB</option>
+                    <option>USD</option>
+                    <option>EUR</option>
+                    <option>GBP</option>
+                    <option>CNY</option>
+                    <option>JPY</option>
+                </select>
+                <button id="converter-btn" onclick="performCurrencyConversion()" style="
+                    padding: 10px 20px;
+                    background: var(--primary-green);
+                    color: var(--bg-dark);
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Конвертировать</button>
+            </div>
+            <div id="converter-result" style="margin-top: 20px; font-size: 18px; color: var(--secondary-pink); font-weight: bold;"></div>
+        </section>
         
     </main>
     
     <footer>
-        <p>&copy; 2025 Мой сайт</p>
+        <p>&copy; 2026 Мой сайт</p>
     </footer>
+    <script src="theme.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script>
+        // Курсы валют
+        const exchangeRates = {
+            'USD': 1,
+            'RUB': 80,
+            'EUR': 0.92,
+            'GBP': 0.79,
+            'CNY': 7.24,
+            'JPY': 149.50
+        };
+        
+        function performCurrencyConversion() {
+            const amount = parseFloat(document.getElementById('converter-amount').value) || 0;
+            const from = document.getElementById('converter-from').value;
+            const to = document.getElementById('converter-to').value;
+            
+            const amountInUSD = amount / exchangeRates[from];
+            const result = (amountInUSD * exchangeRates[to]).toFixed(2);
+            
+            document.getElementById('converter-result').textContent = `${amount} ${from} = ${result} ${to}`;
+        }
+        
+        // Конвертировать при изменении значений
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('converter-amount').addEventListener('change', performCurrencyConversion);
+            document.getElementById('converter-from').addEventListener('change', performCurrencyConversion);
+            document.getElementById('converter-to').addEventListener('change', performCurrencyConversion);
+            performCurrencyConversion();
+        });
+    </script>
 </body>
 </html>

@@ -8,6 +8,9 @@
 </head>
 <body>
     <header>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="burger">☰</label>
+        <button id="theme-toggle" aria-label="Переключить тему">🌙</button>
         <nav>
             <ul>
                 <li><a href="index.html">Главная</a></li>
@@ -36,33 +39,33 @@
                 <tbody>
                     <tr>
                         <td>HTML5</td>
-                        <td>⭐⭐☆☆☆</td>
-                        <td>1 неделя</td>
+                        <td>⭐⭐⭐⭐☆</td>
+                        <td>6 месяца</td>
                     </tr>
                     <tr>
                         <td>CSS3</td>
-                        <td>⭐☆☆☆☆</td>
-                        <td>ток начинаю</td>
+                        <td>⭐⭐⭐☆☆</td>
+                        <td>6 месяца</td>
                     </tr>
                     <tr>
                         <td>JavaScript</td>
-                        <td>⭐☆☆☆☆</td>
-                        <td>еще даже не открывал</td>
+                        <td>⭐⭐⭐☆☆</td>
+                        <td>6 месяца, прошел курс от codecademy</td>
                     </tr>
                     <tr>
                         <td>Python</td>
-                        <td>⭐⭐☆☆☆</td>
-                        <td>1 год, но уже все позабыл</td>
+                        <td>⭐⭐⭐☆☆</td>
+                        <td>1 год</td>
                     </tr>
                     <tr>
                         <td>C#</td>
-                        <td>⭐⭐⭐☆☆</td>
-                        <td>Язык который я сейчас знаю лучше всего, учил потому что вышел на комиссию(</td>
+                        <td>⭐⭐⭐⭐☆</td>
+                        <td>1 год, язык который я сейчас знаю лучше всего</td>
                     </tr>
                     <tr>
                         <td>React</td>
-                        <td>⭐☆☆☆☆</td>
-                        <td>не открывал</td>
+                        <td>⭐⭐☆☆☆</td>
+                        <td>Изучаю</td>
                     </tr>
                 </tbody>
             </table>
@@ -73,11 +76,11 @@
             <h2>Мои цели на ближайшее будущее</h2>
             <ol>
                 <li>Выучить JavaScript на продвинутый уровень</li>
-                <li>Создать 3 полноценных проекта</li>
+                <li>Создать 5 полноценных проекта</li>
                 <li>Найти работу веб-разработчиком</li>
-                <li>Выучить английский до уровня Intermediate</li>
+                <li>Выучить английский до уровня чтения документации</li>
                 <li>Освоить фреймворк React</li>
-                <li>Написать свой первый пет-проект</li>
+                <li>Наполнить портфолио проектами</li>
             </ol>
         </section>
         
@@ -92,11 +95,19 @@
                 <li>Креативное мышление</li>
             </ul>
         </section>
+
+        <!-- Таблица курсов -->
+        <section id="courses-section">
+            <h2>Пройденные и планируемые курсы</h2>
+            <div id="courses-table"></div>
+        </section>
     </main>
     
     <footer>
-        <p>&copy; 2025 My website. All rights under my protect</p>
+        <p>&copy; 2026 My website. All rights under my protect</p>
         <p>Мой любимый сайт: <a href="https://deepseek.com" target="_blank">DeepSeek</a></p>
     </footer>
+    <script src="theme.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

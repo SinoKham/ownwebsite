@@ -18,16 +18,51 @@
     /* ===== РАЗМЕРЫ ===== */
     --container-width: 1200px;      /* Максимальная ширина контента */
     --border-radius: 8px;           /* Радиус скругления углов */
+    --header-bg: #1a0f1a;           /* фон шапки по умолчанию (тёмный) */
+    --row-even-bg: #2a152a;         /* фон четных строк таблицы */
 }
 
-/* ========== УНИВЕРСАЛЬНЫЙ СЕЛЕКТОР (обнуляем всё) ========== */
+/* ========== ПЕРЕМЕННЫЕ ДЛЯ СВЕТЛОЙ ТЕМЫ (переопределяют темные значения) ========== */
+body[data-theme="light"] {
+    --bg-dark: #f7f7f7;      /* светлый фон */
+    --text-light: #0b0b0b;   /* темный текст */
+    --card-bg: #ffffff;      /* карточки белые */
+    --primary-green: #007a3d;/* тёмно-зелёный для акцентов */
+    --secondary-pink: #8b1a5a;/* более тёмный розовый для контраста */
+}
+
+/* Отключаем декоративные полосы для светлой темы */
+body[data-theme="light"]::after {
+    background: none;
+}
+
+/* Кнопка переключения темы */
+#theme-toggle {
+    background: transparent;
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    padding: 5px 8px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    order: 2;
+}
+
+#theme-toggle.active {
+    background: var(--primary-green);
+    color: var(--bg-dark);
+}
+
+/* УНИВЕРСАЛЬНЫЙ СЕЛЕКТОР (обнуляем всё)  */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;         /* Чтобы ширина считалась с padding'ом */
 }
 
-/* ========== СЕЛЕКТОР ТЕГА ДЛЯ BODY ========== */
+/*  СЕЛЕКТОР ТЕГА ДЛЯ BODY  */
 body {
     /* Шрифты */
     font-family: 'Courier New', monospace;  /* Стильный моноширинный шрифт */
@@ -47,58 +82,63 @@ body {
     position: relative;
 }
 
-/* ========== ПСЕВДОЭЛЕМЕНТ - ЭФФЕКТ СТАРОГО ТЕЛЕВИЗОРА ========== */
+/* ПСЕВДОЭЛЕМЕНТ - ЭФФЕКТ СТАРОГО ТЕЛЕВИЗОРА */
 body::after {
-    content: "";                     /* Обязательно для псевдоэлемента */
-    position: fixed;                 /* Приклеиваем к экрану */
+    content: "";
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     
-    /* Создаем полоски как на старых ЭЛТ телевизорах */
     background: repeating-linear-gradient(
-        0deg,                        /* Направление сверху вниз */
-        rgba(0, 255, 65, 0.03) 0px,  /* Прозрачный зеленый */
-        rgba(0, 0, 0, 0.3) 1px,      /* Темная полоска */
-        transparent 2px              /* Прозрачный промежуток */
+        0deg,
+        rgba(0, 255, 65, 0.03) 0px,
+        rgba(0, 0, 0, 0.3) 1px,
+        transparent 2px
     );
     
-    pointer-events: none;            /* Чтобы можно было кликать сквозь полоски */
-    z-index: 9999;                   /* Чтобы было поверх всего */
+    pointer-events: none;             /* Ключево: не перекывает клики */
+    z-index: 1;
 }
 
-/* ========== СЕЛЕКТОР ТЕГА ДЛЯ HEADER ========== */
+/* СЕЛЕКТОР ТЕГА ДЛЯ HEADER  */
 header {
-    background: #1a0f1a;              /* Темно-фиолетовый фон */
+    background: var(--header-bg);
     border-bottom: 2px solid var(--primary-green);
-    padding: var(--spacing-md) 0;      /* Отступы сверху и снизу */
-    margin-bottom: var(--spacing-xl);  /* Отступ снизу от шапки */
-    position: sticky;                  /* Прилипает к верху при скролле */
+    padding: 10px 0;                   /* Меньше паддинга */
+    margin-bottom: var(--spacing-md);  /* Меньше отступа */
+    position: sticky;
     top: 0;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px var(--spacing-md);
 }
 
-/* ========== НАВИГАЦИЯ ========== */
+/* НАВИГАЦИЯ */
 nav ul {
-    list-style: none;                  /* Убираем маркеры списка */
-    display: flex;                      /* Элементы в ряд */
-    justify-content: center;            /* По центру */
-    gap: var(--spacing-lg);             /* Расстояние между пунктами */
-    flex-wrap: wrap;                    /* Перенос на новую строку */
-    padding: 0 var(--spacing-md);
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
 }
 
 /* СЕЛЕКТОР ТЕГА ДЛЯ ССЫЛОК В НАВИГАЦИИ */
 nav a {
     color: var(--text-light);
-    text-decoration: none;              /* Убираем подчеркивание */
-    padding: var(--spacing-sm) var(--spacing-md);
+    text-decoration: none;
+    padding: 8px 12px;
     border: 1px solid transparent;
     border-radius: var(--border-radius);
-    transition: all 0.3s ease;          /* Плавные переходы */
+    transition: all 0.3s ease;
     font-weight: bold;
     position: relative;
+    font-size: 14px;
 }
 
 /* ПСЕВДОКЛАСС :hover - при наведении */
@@ -184,6 +224,88 @@ ul li::marker {
 ol li::marker {
     color: var(--secondary-pink);
     font-weight: bold;
+}
+
+/* ========== КАРТОЧКИ ПОРТФОЛИО (GRID) ========== */
+.projects-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-green);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 255, 65, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card h3 {
+    color: var(--secondary-pink);
+    margin-bottom: var(--spacing-md);
+}
+
+.project-card p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-light);
+}
+
+.project-card .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.project-card .tech-tag {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--primary-green);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* ПСЕВДОКЛАСС :hover для карточек */
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(255, 0, 255, 0.3);
+    border-color: var(--secondary-pink);
+}
+
+/* ПСЕВДОЭЛЕМЕНТ для эффекта сканирования */
+.project-card:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 255, 65, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    animation: scan 2s linear infinite;
+    pointer-events: none;
+    border-radius: var(--border-radius);
+}
+
+/* Адаптивность карточек */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .projects-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .projects-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* ========== ИЗОБРАЖЕНИЯ С ПОДПИСЬЮ ========== */
@@ -304,9 +426,8 @@ th {
     font-weight: bold;
 }
 
-/* ПСЕВДОКЛАСС :nth-child для зебры */
 tr:nth-child(even) {
-    background: #2a152a;
+    background: var(--row-even-bg);
 }
 
 /* ПСЕВДОКЛАСС :hover для строк таблицы */
@@ -416,11 +537,6 @@ footer a {
     transition: color 0.3s ease;
 }
 
-footer a:hover {
-    color: var(--primary-green);
-    text-decoration: underline;
-}
-
 /* ПСЕВДОЭЛЕМЕНТ для декоративной полоски */
 footer::before {
     content: "";
@@ -459,19 +575,17 @@ h1:hover {
     100% { transform: translate(0); }
 }
 
-/* Эффект мерцания для body (усиливаем вайб) */
+/* Эффект мерцания для body (усиливаем вайб) - сделано менее агрессивным для доступности */
 body {
-    animation: flicker 0.1s infinite;
+    animation: flicker 0.5s infinite;
 }
 
 @keyframes flicker {
-    0% { opacity: 0.98; }
+    0% { opacity: 0.99; }
     50% { opacity: 1; }
-    100% { opacity: 0.98; }
+    100% { opacity: 0.99; }
 }
 
-/* ========== МЕДИА-ЗАПРОСЫ (ДЛЯ МОБИЛЬНЫХ) ========== */
-@media (max-width: 768px) {
     /* Уменьшаем заголовки */
     h1 {
         font-size: 2rem;
@@ -481,11 +595,13 @@ body {
         font-size: 1.5rem;
     }
     
-    /* Меняем навигацию на колонку */
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-sm);
+    /* На мобильных экранах делаем навигацию колонкой */
+    @media (max-width: 767px) {
+        nav ul {
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
     }
     
     /* Сетка в одну колонку */
@@ -504,7 +620,7 @@ body {
         display: block;
         overflow-x: auto;
     }
-}
+
 
 /* ========== ДОПОЛНИТЕЛЬНЫЙ КЛАСС ДЛЯ ТЕКСТА ========== */
 .highlight {
@@ -517,3 +633,90 @@ body {
 /* &nbsp; - неразрывный пробел */
 /* &lt; - < */
 /* &gt; - > */
+/* ===== БУРГЕР МЕНЮ ===== */
+
+#menu-toggle {
+    display: none;
+}
+
+/* по умолчанию (мобилка) меню скрыто */
+nav ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    border-bottom: 2px solid var(--primary-green);
+    gap: 0;
+    padding: var(--spacing-md);
+    z-index: 99;
+}
+
+nav ul li {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* при клике показывается */
+#menu-toggle:checked ~ nav ul {
+    display: flex !important;
+}
+
+/* ===== ПЛАНШЕТ (768px - 1024px) ===== */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .burger {
+        display: none;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        border: none;
+        background: transparent;
+        padding: 0;
+        gap: var(--spacing-md);
+    }
+
+    nav ul li {
+        padding: 0;
+    }
+}
+
+/* ===== ДЕСКТОП (более 1024px) ===== */
+@media (min-width: 1025px) {
+    .burger {
+        display: none;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        top: auto;
+        background: transparent;
+        border: none;
+        gap: var(--spacing-md);
+        padding: 0;
+        width: auto;
+    }
+
+    nav ul li {
+        padding: 0;
+    }
+}
+
+/* ===== ДЕСКТОП ===== */
+@media (min-width: 1024px) {
+    nav ul {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

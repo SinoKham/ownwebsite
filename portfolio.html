@@ -2,11 +2,15 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Портфолио</title>
     <link rel="stylesheet" href="style1.css"/>
 </head>
 <body>
     <header>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="burger">☰</label>
+        <button id="theme-toggle" aria-label="Переключить тему">🌙</button>
         <nav>
             <ul>
                 <li><a href="index.html">Главная</a></li>
@@ -19,21 +23,19 @@
     </header>
     
     <main>
-        <h1>Портфолио. Ссылок и примеров не будет</h1>
+        <h1>Портфолио</h1>
         
-        <h2>Проект 1: Сайт о себе</h2>
-        <p>Мой первый учебный проект. Сделал в 2025 году.</p>
+        <div id="projects-list" class="projects-container">
+        </div>
         
-        <h2>Проект 2: Калькулятор</h2>
-        <p>Умеет считать + - * / .</p>
-        
-        <h2>Проект 3: Список задач</h2>
-        <p>Помогает не забыть важные дела.</p>
+    </main>
         
     </main>
     
     <footer>
-        <p>&copy; 2025</p>
+        <p>&copy; 2026</p>
     </footer>
+    <script src="theme.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
